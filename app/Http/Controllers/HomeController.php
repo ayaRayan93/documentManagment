@@ -34,7 +34,7 @@ class HomeController extends Controller
 
     }
 
-    public function MergePDF()
+    public function MergePDF1()
     {
         $pdf = new LynX39\LaraPdfMerger\PdfManage;
 
@@ -47,6 +47,22 @@ class HomeController extends Controller
         $pdf->addPDF('samplepdfs/two.pdf', '1-2', 'P');
 
         $pdf->merge('file', 'samplepdfs/TEST2.pdf', 'P');
+    }
+
+    public function MergePDF()
+    {
+        $pdfFile1Path = public_path() . '/samplepdfs/one.pdf';
+        $pdfFile2Path = public_path() . '/samplepdfs/two.pdf';
+
+        // Create an instance of PDFMerger
+        $pdf = new PDFMerger();
+
+        // Add 2 PDFs to the final PDF
+        $pdf->addPDF($pdfFile1Path, 'all');
+        $pdf->addPDF($pdfFile2Path, 'all');
+
+        // Generate download of "mergedpdf.pdf"
+        $pdf->merge('download', "mergedpdf.pdf");
     }
 }
 
